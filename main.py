@@ -17,7 +17,7 @@ class MyLogger(object):
         print(msg)
 
 
-bot = telebot.TeleBot('1116367497:AAEwFdWbQmBfkPCJFaUo_27igRjW8cGgjzg')
+bot = telebot.TeleBot('token')
 
 @bot.message_handler(commands=['start'])
 def wel(message):
