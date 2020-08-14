@@ -27,24 +27,27 @@ def wel(message):
 @bot.message_handler(content_types=['text'])
 def auu(message):
     bot.send_message(message.chat.id, 'Please wait...')
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'logger': MyLogger(),
-        
-    }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([f'{message.text}'])
-    audio_name = glob.glob('*.mp3')[0]
-    audio = open(audio_name, 'rb')
-    bot.send_chat_action(message.from_user.id, 'upload_audio')
-    bot.send_audio(message.from_user.id, audio)
-    audio.close()
-    os.remove(audio_name)
+    try:
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'logger': MyLogger(),
+            
+        }
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([f'{message.text}'])
+        audio_name = glob.glob('*.mp3')[0]
+        audio = open(audio_name, 'rb')
+        bot.send_chat_action(message.from_user.id, 'upload_audio')
+        bot.send_audio(message.from_user.id, audio)
+        audio.close()
+        os.remove(audio_name)
+    except Exception:
+        bot.send_message(message.chat.id, 'Error please enter correct URL')
 
 
 bot.polling(none_stop=True)
