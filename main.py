@@ -6,17 +6,6 @@ import glob
 
 
 
-class MyLogger(object):
-    def debug(self, msg):
-        pass
-
-    def warning(self, msg):
-        pass
-
-    def error(self, msg):
-        print(msg)
-
-
 bot = telebot.TeleBot('token')
 
 @bot.message_handler(commands=['start'])
@@ -35,7 +24,6 @@ def auu(message):
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
-            'logger': MyLogger(),
             
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
